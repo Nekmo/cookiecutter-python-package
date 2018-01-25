@@ -4,7 +4,7 @@
 import sys
 
 
-class {{ ''.join(x.capitalize() or '_' for x in cookiecutter.project_slug.split('_')) }}Error(Exception):
+class {% for x in project_slug.split("_") %}{{ x.capitalize() }}{% endfor %}Error(Exception):
     body = ''
 
     def __init__(self, extra_body=''):
@@ -23,6 +23,6 @@ def catch(fn):
     def wrap(*args, **kwargs):
         try:
             fn(*args, **kwargs)
-        except {{ ''.join(x.capitalize() or '_' for x in cookiecutter.project_slug.split('_')) }}Error as e:
+        except {% for x in project_slug.split("_") %}{{ x.capitalize() }}{% endfor %}Error as e:
             sys.stderr.write('[Error] {{ cookiecutter.project_name }} Exception:\n{}\n'.format(e))
     return wrap
