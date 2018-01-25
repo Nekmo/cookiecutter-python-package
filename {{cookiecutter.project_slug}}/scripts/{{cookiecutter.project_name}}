@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from dirhunt.exceptions import catch
-from dirhunt.management import manage
+from {{ cookiecutter.project_slug }}.exceptions import catch
+from {{ cookiecutter.project_slug }}.management import manage
 
 if __name__ == '__main__':
     catch(manage)()
