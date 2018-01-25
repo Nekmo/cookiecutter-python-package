@@ -94,3 +94,5 @@ target/
 # Cookiecutter
 output/
 python_boilerplate/
+
+/.idea
