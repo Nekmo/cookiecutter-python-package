@@ -2,8 +2,21 @@
 # -*- coding: utf-8 -*-
 
 """The setup script."""
+import os
+import uuid
 
+import sys
 from setuptools import setup, find_packages
+from pip.req import parse_requirements
+
+__dir__ = os.path.abspath(os.path.dirname(__file__))
+
+
+def get_url(ir):
+    if hasattr(ir, 'url'): return ir.url
+    if ir.link is None: return
+    return ir.link.url
+
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -11,12 +24,17 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [
-    {%- if cookiecutter.command_line_interface|lower == 'click' %}
-    'Click>=6.0',
-    {%- endif %}
-    # TODO: put package requirements here
-]
+
+# Requirements list
+requirements_path = os.path.join(__dir__, 'py{}-requirements.txt'.format(sys.version_info.major))
+if os.path.exists(requirements_path):
+    requirements = parse_requirements(requirements_path, session=uuid.uuid1())
+    install_requires = [str(ir.req) for ir in requirements if not get_url(ir)]
+    dependency_links = [get_url(ir) for ir in requirements if get_url(ir)]
+else:
+    install_requires = []
+    dependency_links = []
+
 
 setup_requirements = [
 {%- if cookiecutter.use_pytest == 'y' %}
@@ -41,7 +59,7 @@ test_requirements = [
 } %}
 
 setup(
-    name='{{ cookiecutter.project_slug }}',
+    name='{{ cookiecutter.project_name }}',
     version='{{ cookiecutter.version }}',
     description="{{ cookiecutter.project_short_description }}",
     long_description=readme + '\n\n' + history,
@@ -57,7 +75,8 @@ setup(
     },
     {%- endif %}
     include_package_data=True,
-    install_requires=requirements,
+    install_requires=install_requires,
+    dependency_links=dependency_links,
 {%- if cookiecutter.open_source_license in license_classifiers %}
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
