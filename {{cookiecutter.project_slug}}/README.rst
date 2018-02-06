@@ -1,42 +1,49 @@
 {% set is_open_source = cookiecutter.open_source_license != 'Not open source' -%}
-{% for _ in cookiecutter.project_name %}={% endfor %}
+{% for _ in cookiecutter.project_name %}#{% endfor %}
 {{ cookiecutter.project_name }}
-{% for _ in cookiecutter.project_name %}={% endfor %}
+{% for _ in cookiecutter.project_name %}#{% endfor %}
 
 {% if is_open_source %}
-.. image:: https://img.shields.io/pypi/v/{{ cookiecutter.project_slug }}.svg
-        :target: https://pypi.python.org/pypi/{{ cookiecutter.project_slug }}
+.. image:: https://img.shields.io/travis/Nekmo/{{ cookiecutter.project_name }}.svg?style=flat-square&maxAge=2592000
+  :target: https://travis-ci.org/Nekmo/{{ cookiecutter.project_name }}
+  :alt: Latest Travis CI build status
 
-.. image:: https://img.shields.io/travis/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.svg
-        :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
+.. image:: https://img.shields.io/pypi/v/{{ cookiecutter.project_name }}.svg?style=flat-square
+  :target: https://pypi.org/project/{{ cookiecutter.project_name }}/
+  :alt: Latest PyPI version
 
-.. image:: https://readthedocs.org/projects/{{ cookiecutter.project_slug | replace("_", "-") }}/badge/?version=latest
-        :target: https://{{ cookiecutter.project_slug | replace("_", "-") }}.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+.. image:: https://img.shields.io/pypi/pyversions/{{ cookiecutter.project_name }}.svg?style=flat-square
+  :target: https://pypi.org/project/{{ cookiecutter.project_name }}/
+  :alt: Python versions
+
+.. image:: https://img.shields.io/codeclimate/github/Nekmo/{{ cookiecutter.project_name }}.svg?style=flat-square
+  :target: https://codeclimate.com/github/Nekmo/{{ cookiecutter.project_name }}
+  :alt: Code Climate
+
+.. image:: https://img.shields.io/codecov/c/github/Nekmo/{{ cookiecutter.project_name }}/master.svg?style=flat-square
+  :target: https://codecov.io/github/Nekmo/{{ cookiecutter.project_name }}
+  :alt: Test coverage
+
+.. image:: https://img.shields.io/requires/github/Nekmo/{{ cookiecutter.project_name }}.svg?style=flat-square
+     :target: https://requires.io/github/Nekmo/{{ cookiecutter.project_name }}/requirements/?branch=master
+     :alt: Requirements Status
 {%- endif %}
-
-.. image:: https://pyup.io/repos/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/shield.svg
-     :target: https://pyup.io/repos/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/
-     :alt: Updates
 
 
 {{ cookiecutter.project_short_description }}
 
-{% if is_open_source %}
-* Free software: {{ cookiecutter.open_source_license }}
-* Documentation: https://{{ cookiecutter.project_slug | replace("_", "-") }}.readthedocs.io.
-{% endif %}
+
+To install {{ cookiecutter.project_name }}, run this command in your terminal:
+
+.. code-block:: console
+
+    $ sudo pip install {{ cookiecutter.project_name }}
+
+This is the preferred method to install {{ cookiecutter.project_name }}, as it will always install the most recent stable release.
+
 
 Features
---------
+========
 
 * TODO
-
-Credits
----------
-
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
 

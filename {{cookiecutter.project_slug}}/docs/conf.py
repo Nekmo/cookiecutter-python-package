@@ -16,6 +16,8 @@
 import sys
 import os
 
+__dir__ = os.path.dirname(__file__)
+
 # If extensions (or modules to document with autodoc) are in another
 # directory, add these directories to sys.path here. If the directory is
 # relative to the documentation root, use os.path.abspath to make it
@@ -111,12 +113,24 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+html_theme_options = {
+    'logo': 'logo.png',
+    'description': 'Hack your Amazon Dash to run what you want',
+    'github_user': '{{ cookiecutter.github_username }}',
+    'github_repo': '{{ cookiecutter.project_slug }}',
+    'github_type': 'star',
+    'github_banner': True,
+    'travis_button': True,
+    'codecov_button': True,
+    'analytics_id': 'UA-62276079-1',
+    'canonical_url': 'http://docs.nekmo.org/{{ cookiecutter.project_name }}/'
+}
+
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
@@ -153,7 +167,15 @@ html_static_path = ['_static']
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+html_sidebars = {
+    '**': [
+        'about.html',
+        'navigation.html',
+        'relations.html',
+        'searchbox.html',
+        'donate.html',
+    ]
+}
 
 # Additional templates that should be rendered to pages, maps page names
 # to template names.
@@ -273,3 +295,6 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+def setup(app):
+    app.add_stylesheet('_static/custom.css')
