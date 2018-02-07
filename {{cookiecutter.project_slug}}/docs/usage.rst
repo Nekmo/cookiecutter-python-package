@@ -1,7 +1,26 @@
+.. highlight:: console
+
+
 =====
 Usage
 =====
 
-To use {{ cookiecutter.project_name }} in a project::
+To see the available help run::
 
-    import {{ cookiecutter.project_slug }}
+    $ {{ cookiecutter.project_slug }} --help
+
+
+Example::
+
+    <help>
+
+
+To see the help of a command::
+
+    $ {{ cookiecutter.project_slug }} <command> --help
+
+For example::
+
+    $ {{ cookiecutter.project_slug }} ...
+
+

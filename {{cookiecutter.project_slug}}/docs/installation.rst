@@ -1,4 +1,4 @@
-.. highlight:: shell
+.. highlight:: console
 
 ============
 Installation
@@ -14,13 +14,27 @@ To install {{ cookiecutter.project_name }}, run this command in your terminal:
 
     $ pip install {{ cookiecutter.project_slug }}
 
-This is the preferred method to install {{ cookiecutter.project_name }}, as it will always install the most recent stable release. 
+This is the preferred method to install {{ cookiecutter.project_name }}, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
 
 .. _pip: https://pip.pypa.io
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+
+
+Other releases
+--------------
+You can install other versions from Pypi using::
+
+    $ pip install {{ cookiecutter.project_name }}==<version>
+
+For versions that are not in Pypi (it is a development version)::
+
+    $ pip install git+https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_name
+    }}@<branch>#egg={{ cookiecutter.project_name }}
+
+
 
 
 From sources
@@ -32,13 +46,13 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
+    $ git clone git://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl  -OL https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/tarball/master
+    $ curl  -OL https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +61,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
-.. _tarball: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/tarball/master
+.. _Github repo: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}
+.. _tarball: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}/tarball/master
