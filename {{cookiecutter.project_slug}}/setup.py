@@ -10,6 +10,7 @@ from setuptools import setup, find_packages
 from pip.req import parse_requirements
 
 __dir__ = os.path.abspath(os.path.dirname(__file__))
+scripts_path = os.path.join(__dir__, 'scripts')
 
 
 def get_url(ir):
@@ -58,6 +59,14 @@ test_requirements = [
     'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
 } %}
 
+if os.path.exists(scripts_path):
+    scripts_dir_name = scripts_path.replace(__dir__, '', 1)
+    scripts_dir_name = scripts_dir_name[1:] if scripts_dir_name.startswith(os.sep) else scripts_dir_name
+    scripts = [os.path.join(scripts_dir_name, file) for file in os.listdir(scripts_path)]
+else:
+    scripts = []
+
+
 setup(
     name='{{ cookiecutter.project_name }}',
     version='{{ cookiecutter.version }}',
@@ -67,13 +76,6 @@ setup(
     author_email='{{ cookiecutter.email }}',
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
     packages=find_packages(include=['{{ cookiecutter.project_slug }}']),
-    {%- if 'no' not in cookiecutter.command_line_interface|lower %}
-    entry_points={
-        'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main'
-        ]
-    },
-    {%- endif %}
     include_package_data=True,
     install_requires=install_requires,
     dependency_links=dependency_links,
@@ -99,4 +101,5 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     setup_requires=setup_requirements,
+    scripts = scripts,
 )
