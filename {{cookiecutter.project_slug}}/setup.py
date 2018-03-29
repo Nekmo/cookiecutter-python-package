@@ -67,15 +67,31 @@ else:
     scripts = []
 
 
+packages = find_packages(__dir__)
+# Prevent include symbolic links
+for package in tuple(packages):
+    path = os.path.join(__dir__, package.replace('.', '/'))
+    if not os.path.exists(path):
+        continue
+    if not os.path.islink(path):
+        continue
+    packages.remove(package)
+
+
+modules = list(filter(lambda x: '.' not in x, packages))
+
+package_version = __import__(modules[0]).__version__
+
+
 setup(
     name='{{ cookiecutter.project_name }}',
-    version='{{ cookiecutter.version }}',
+    version=package_version,
     description="{{ cookiecutter.project_short_description }}",
     long_description=readme + '\n\n' + history,
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
     author_email='{{ cookiecutter.email }}',
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
-    packages=find_packages(include=['{{ cookiecutter.project_slug }}']),
+    packages=modules,
     include_package_data=True,
     install_requires=install_requires,
     dependency_links=dependency_links,
