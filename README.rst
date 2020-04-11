@@ -1,3 +1,6 @@
+**MOVED TO ANOTHER REPOSITORY**: https://github.com/Nekmo/cookiecutter-python-package
+
+
 ============================
 Python Project Cookie Cutter
 ============================
