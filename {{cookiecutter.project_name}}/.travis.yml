@@ -3,18 +3,17 @@
 
 language: python
 python:
+  - 3.8
+  - 3.7
+  - 3.6
   - 3.5
-  - 3.4
-  - 3.3
-  - 2.7
-  - 2.6
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
-- if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then export PYVER=py27; fi
-- if [[ $TRAVIS_PYTHON_VERSION == '3.4' ]]; then export PYVER=py34; fi
-- if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then export PYVER=py35; fi
+- if [[ $TRAVIS_PYTHON_VERSION == '3.8' ]]; then export PYVER=py38; fi
+- if [[ $TRAVIS_PYTHON_VERSION == '3.7' ]]; then export PYVER=py37; fi
 - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then export PYVER=py36; fi
+- if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then export PYVER=py35; fi
 
 # command to run tests, e.g. python setup.py test
 script: COMMAND='coverage run' tox -e$PYVER
@@ -33,5 +32,5 @@ deploy:
   on:
     tags: true
     repo: {{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
-    python: 2.7
+    python: 3.8
 {%- endif %}
