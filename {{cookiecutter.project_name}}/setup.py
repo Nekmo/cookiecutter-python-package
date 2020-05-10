@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import copy
-import os
-import glob
 from itertools import chain
-from setuptools import setup, find_packages
+from setuptools import setup
 
 MODULE = '{{ cookiecutter.project_slug }}'
 REQUIREMENT_FILE = 'requirements.in'
-STATUS_LEVEL = 5  # 1:Planning 2:Pre-Alpha 3:Alpha 4:Beta 5:Production/Stable 6:Mature 7:Inactive
-
+DEV_STATUS = 'Production/Stable'  # Planning, Pre-Alpha, Alpha, Beta, Production/Stable, Mature, Inactive
 CLASSIFIERS = [  # https://github.com/github/choosealicense.com/tree/gh-pages/_licenses
     {{ '# ' if cookiecutter.open_source_license != 'MIT license' else '' }}'License :: OSI Approved :: MIT License',
     {{ '# ' if cookiecutter.open_source_license != 'BSD license' else '' }}'License :: OSI Approved :: BSD License',
@@ -18,7 +15,6 @@ CLASSIFIERS = [  # https://github.com/github/choosealicense.com/tree/gh-pages/_l
     {{ '# ' if cookiecutter.open_source_license != 'GNU General Public License v3' else '' }}'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
 ]  # https://pypi.python.org/pypi?%3Aaction=list_classifiers
 NATURAL_LANGUAGE = 'English'
-
 PLATFORMS = [
     # 'universal',
     'linux',
@@ -31,10 +27,6 @@ PLATFORMS = [
     # 'android'
 ]
 PYTHON_VERSIONS = ['3.5', '3.6', '3.7', '3.8']
-
-
-def get_package_version(module_name):
-    return __import__(module_name).__version__
 
 
 def get_python_classifiers(versions):
@@ -63,18 +55,15 @@ def read_file(path):
         return f.read()
 
 
-# Package data
-python_versions = set(PYTHON_VERSIONS) - {2.8, 2.9}
-status_name = ['Planning', 'Pre-Alpha', 'Alpha', 'Beta',
-               'Production/Stable', 'Mature', 'Inactive'][STATUS_LEVEL - 1]
+statuses = ['Planning', 'Pre-Alpha', 'Alpha', 'Beta', 'Production/Stable', 'Mature', 'Inactive']
 
 # Classifiers
 classifiers = copy.copy(CLASSIFIERS)
-classifiers.extend(get_python_classifiers(python_versions))
+classifiers.extend(get_python_classifiers(set(PYTHON_VERSIONS) - {2.8, 2.9}))
 classifiers.extend(chain(*[get_platform_classifiers(platform) for platform in PLATFORMS]))
 classifiers.extend([
     'Natural Language :: {}'.format(NATURAL_LANGUAGE),
-    'Development Status :: {} - {}'.format(STATUS_LEVEL, status_name),
+    'Development Status :: {} - {}'.format(statuses.index(DEV_STATUS) + 1, DEV_STATUS),
 ])
 
 
