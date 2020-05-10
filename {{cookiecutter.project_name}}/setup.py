@@ -4,7 +4,6 @@ import copy
 from itertools import chain
 from setuptools import setup
 
-MODULE = '{{ cookiecutter.project_slug }}'
 REQUIREMENT_FILE = 'requirements.in'
 DEV_STATUS = 'Production/Stable'  # Planning, Pre-Alpha, Alpha, Beta, Production/Stable, Mature, Inactive
 CLASSIFIERS = [  # https://github.com/github/choosealicense.com/tree/gh-pages/_licenses
