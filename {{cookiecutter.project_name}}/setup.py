@@ -7,7 +7,7 @@ from itertools import chain
 from setuptools import setup, find_packages
 
 MODULE = '{{ cookiecutter.project_slug }}'
-REQUIREMENT_FILE = 'requirements.txt'
+REQUIREMENT_FILE = 'requirements.in'
 STATUS_LEVEL = 5  # 1:Planning 2:Pre-Alpha 3:Alpha 4:Beta 5:Production/Stable 6:Mature 7:Inactive
 
 CLASSIFIERS = [  # https://github.com/github/choosealicense.com/tree/gh-pages/_licenses
@@ -31,11 +31,6 @@ PLATFORMS = [
     # 'android'
 ]
 PYTHON_VERSIONS = ['3.5', '3.6', '3.7', '3.8']
-
-
-def read_requirement_file(path):
-    with open(path) as f:
-        return f.readlines()
 
 
 def get_package_version(module_name):
@@ -63,6 +58,11 @@ def get_platform_classifiers(platform):
             for i in range(len(parts))]
 
 
+def read_file(path):
+    with open(path) as f:
+        return f.read()
+
+
 # Package data
 python_versions = set(PYTHON_VERSIONS) - {2.8, 2.9}
 status_name = ['Planning', 'Pre-Alpha', 'Alpha', 'Beta',
@@ -86,5 +86,5 @@ setup(
     },
     classifiers=classifiers,
     platforms=PLATFORMS,
-    install_requires=read_requirement_file(REQUIREMENT_FILE),
+    install_requires=read_file(REQUIREMENT_FILE),
 )
