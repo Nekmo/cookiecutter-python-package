@@ -30,7 +30,7 @@ PLATFORMS = [
     # 'ios'
     # 'android'
 ]
-PYTHON_VERSIONS = ['3.5-3.8']
+PYTHON_VERSIONS = ['3.5', '3.6', '3.7', '3.8']
 
 
 def read_requirement_file(path):
@@ -89,7 +89,7 @@ readme = glob.glob('{}/{}*'.format(here, 'README'))[0]
 packages = get_packages(here)
 modules = list(filter(lambda x: '.' not in x, packages))
 module = MODULE if MODULE else modules[0]
-python_versions = set(chain(*[get_python_versions(versions) for versions in PYTHON_VERSIONS])) - {2.8, 2.9}
+python_versions = set(PYTHON_VERSIONS) - {2.8, 2.9}
 status_name = ['Planning', 'Pre-Alpha', 'Alpha', 'Beta',
                'Production/Stable', 'Mature', 'Inactive'][STATUS_LEVEL - 1]
 
