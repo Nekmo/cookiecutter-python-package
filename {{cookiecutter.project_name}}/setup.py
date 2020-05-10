@@ -94,7 +94,6 @@ def get_platform_classifiers(platform):
 # paths
 here = os.path.abspath(os.path.dirname(__file__))
 readme = glob.glob('{}/{}*'.format(here, 'README'))[0]
-scripts = [os.path.join('scripts', os.path.basename(script)) for script in glob.glob('{}/scripts/*'.format(here))]
 
 # Package data
 packages = get_packages(here)
@@ -119,9 +118,12 @@ setup(
     version=get_package_version(module),
     packages=packages,
     provides=modules,
-    scripts=scripts,
     include_package_data=True,
-
+    entry_points={
+        'console_scripts': [
+            '{{ cookiecutter.project_name }} = {{ cookiecutter.project_slug }}:manage'
+        ],
+    },
     description=__doc__,
     long_description=open(readme, 'r').read(),
     keywords=KEYWORDS,
