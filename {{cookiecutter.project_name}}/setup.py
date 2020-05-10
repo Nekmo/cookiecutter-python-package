@@ -42,24 +42,6 @@ def get_package_version(module_name):
     return __import__(module_name).__version__
 
 
-def get_packages(directory):
-    # Search modules and submodules to install (module, module.submodule, module.submodule2...)
-    packages_list = find_packages(directory)
-    # Prevent include symbolic links
-    for package in tuple(packages_list):
-        path = os.path.join(directory, package.replace('.', '/'))
-        if not os.path.exists(path) or os.path.islink(path):
-            packages_list.remove(package)
-    return packages_list
-
-
-def get_python_versions(string_range):
-    if '-' not in string_range:
-        return [string_range]
-    return ['{0:.1f}'.format(version * 0.1) for version
-            in range(*[int(x * 10) + (1 * i) for i, x in enumerate(map(float, string_range.split('-')))])]
-
-
 def get_python_classifiers(versions):
     for version in range(2, 4):
         if not next(iter(filter(lambda x: int(float(x)) != version, versions.copy())), False):
@@ -81,14 +63,7 @@ def get_platform_classifiers(platform):
             for i in range(len(parts))]
 
 
-# paths
-here = os.path.abspath(os.path.dirname(__file__))
-readme = glob.glob('{}/{}*'.format(here, 'README'))[0]
-
 # Package data
-packages = get_packages(here)
-modules = list(filter(lambda x: '.' not in x, packages))
-module = MODULE if MODULE else modules[0]
 python_versions = set(PYTHON_VERSIONS) - {2.8, 2.9}
 status_name = ['Planning', 'Pre-Alpha', 'Alpha', 'Beta',
                'Production/Stable', 'Mature', 'Inactive'][STATUS_LEVEL - 1]
@@ -104,22 +79,12 @@ classifiers.extend([
 
 
 setup(
-    version=get_package_version(module),
-    packages=packages,
-    provides=modules,
-    include_package_data=True,
     entry_points={
         'console_scripts': [
             '{{ cookiecutter.project_name }} = {{ cookiecutter.project_slug }}:manage'
         ],
     },
-
     classifiers=classifiers,
     platforms=PLATFORMS,
-
     install_requires=read_requirement_file(REQUIREMENT_FILE),
-
-    # entry_points={},
-
-    zip_safe=False,
 )
