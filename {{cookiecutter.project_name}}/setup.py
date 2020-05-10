@@ -1,24 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""{{ cookiecutter.project_short_description }}
-"""
 import copy
 import os
 import glob
 from itertools import chain
 from setuptools import setup, find_packages
 
-AUTHOR = "{{ cookiecutter.full_name.replace('\"', '\\\"') }}"
-EMAIL = '{{ cookiecutter.email }}'
-URL = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}/'
-
-PACKAGE_NAME = '{{ cookiecutter.project_name }}'
-PACKAGE_DOWNLOAD_URL = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}/archive/master.zip'
 MODULE = '{{ cookiecutter.project_slug }}'
 REQUIREMENT_FILE = 'requirements.txt'
 STATUS_LEVEL = 5  # 1:Planning 2:Pre-Alpha 3:Alpha 4:Beta 5:Production/Stable 6:Mature 7:Inactive
-KEYWORDS = ['{{ cookiecutter.project_name }}']
-LICENSE = '{{ cookiecutter.open_source_license }}'
 
 CLASSIFIERS = [  # https://github.com/github/choosealicense.com/tree/gh-pages/_licenses
     {{ '# ' if cookiecutter.open_source_license != 'MIT license' else '' }}'License :: OSI Approved :: MIT License',
@@ -114,7 +104,6 @@ classifiers.extend([
 
 
 setup(
-    name=PACKAGE_NAME,
     version=get_package_version(module),
     packages=packages,
     provides=modules,
@@ -124,14 +113,6 @@ setup(
             '{{ cookiecutter.project_name }} = {{ cookiecutter.project_slug }}:manage'
         ],
     },
-    description=__doc__,
-    long_description=open(readme, 'r').read(),
-    keywords=KEYWORDS,
-    download_url=PACKAGE_DOWNLOAD_URL,
-
-    author=AUTHOR,
-    author_email=EMAIL,
-    url=URL,
 
     classifiers=classifiers,
     platforms=PLATFORMS,
