@@ -1,3 +1,2 @@
--c requirements.txt
 mypy
 black
